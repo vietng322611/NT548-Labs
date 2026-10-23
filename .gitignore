@@ -1,0 +1,27 @@
+# Terraform cache and state
+**/.terraform/
+*.tfstate
+*.tfstate.*
+*.tfplan
+crash.log
+crash.*.log
+
+# Local configuration
+*.tfvars
+*.tfvars.json
+!*.tfvars.example
+!*.tfvars.json.example
+cloudformation/parameters.json
+
+# Credentials and private keys
+.aws/
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Editor and OS files
+.idea/
+.DS_Store
+Thumbs.db
