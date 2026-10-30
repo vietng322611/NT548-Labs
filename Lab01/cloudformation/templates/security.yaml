@@ -1,0 +1,55 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: NT548 Lab01 security groups
+
+Parameters:
+  Name:
+    Type: String
+  VpcId:
+    Type: AWS::EC2::VPC::Id
+  SshCidr:
+    Type: String
+
+Resources:
+  PublicEc2SecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupName: !Sub '${Name}-public-ec2-sg'
+      GroupDescription: Allow SSH from administrator IP
+      VpcId: !Ref VpcId
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 22
+          ToPort: 22
+          CidrIp: !Ref SshCidr
+      SecurityGroupEgress:
+        - IpProtocol: -1
+          CidrIp: 0.0.0.0/0
+      Tags:
+        - { Key: Name, Value: !Sub '${Name}-public-ec2-sg' }
+        - { Key: Project, Value: NT548-Lab01 }
+        - { Key: ManagedBy, Value: CloudFormation }
+
+  PrivateEc2SecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupName: !Sub '${Name}-private-ec2-sg'
+      GroupDescription: Allow SSH from public EC2 security group
+      VpcId: !Ref VpcId
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 22
+          ToPort: 22
+          SourceSecurityGroupId: !GetAtt PublicEc2SecurityGroup.GroupId
+      SecurityGroupEgress:
+        - IpProtocol: -1
+          CidrIp: 0.0.0.0/0
+      Tags:
+        - { Key: Name, Value: !Sub '${Name}-private-ec2-sg' }
+        - { Key: Project, Value: NT548-Lab01 }
+        - { Key: ManagedBy, Value: CloudFormation }
+
+Outputs:
+  PublicSecurityGroupId:
+    Value: !GetAtt PublicEc2SecurityGroup.GroupId
+  PrivateSecurityGroupId:
+    Value: !GetAtt PrivateEc2SecurityGroup.GroupId

@@ -1,0 +1,76 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: NT548 Lab01 network resources
+
+Parameters:
+  Name:
+    Type: String
+  VpcCidr:
+    Type: String
+  PublicSubnetCidr:
+    Type: String
+  PrivateSubnetCidr:
+    Type: String
+  AvailabilityZone:
+    Type: AWS::EC2::AvailabilityZone::Name
+
+Resources:
+  Vpc:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: !Ref VpcCidr
+      EnableDnsSupport: true
+      EnableDnsHostnames: true
+      Tags:
+        - { Key: Name, Value: !Sub '${Name}-vpc' }
+        - { Key: Project, Value: NT548-Lab01 }
+        - { Key: ManagedBy, Value: CloudFormation }
+
+  InternetGateway:
+    Type: AWS::EC2::InternetGateway
+    Properties:
+      Tags:
+        - { Key: Name, Value: !Sub '${Name}-igw' }
+        - { Key: Project, Value: NT548-Lab01 }
+        - { Key: ManagedBy, Value: CloudFormation }
+
+  InternetGatewayAttachment:
+    Type: AWS::EC2::VPCGatewayAttachment
+    Properties:
+      VpcId: !Ref Vpc
+      InternetGatewayId: !Ref InternetGateway
+
+  PublicSubnet:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref Vpc
+      CidrBlock: !Ref PublicSubnetCidr
+      AvailabilityZone: !Ref AvailabilityZone
+      MapPublicIpOnLaunch: true
+      Tags:
+        - { Key: Name, Value: !Sub '${Name}-public-subnet' }
+        - { Key: Project, Value: NT548-Lab01 }
+        - { Key: ManagedBy, Value: CloudFormation }
+
+  PrivateSubnet:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref Vpc
+      CidrBlock: !Ref PrivateSubnetCidr
+      AvailabilityZone: !Ref AvailabilityZone
+      MapPublicIpOnLaunch: false
+      Tags:
+        - { Key: Name, Value: !Sub '${Name}-private-subnet' }
+        - { Key: Project, Value: NT548-Lab01 }
+        - { Key: ManagedBy, Value: CloudFormation }
+
+Outputs:
+  VpcId:
+    Value: !Ref Vpc
+  DefaultSecurityGroupId:
+    Value: !GetAtt Vpc.DefaultSecurityGroup
+  PublicSubnetId:
+    Value: !Ref PublicSubnet
+  PrivateSubnetId:
+    Value: !Ref PrivateSubnet
+  InternetGatewayId:
+    Value: !Ref InternetGateway

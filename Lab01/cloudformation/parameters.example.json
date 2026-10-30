@@ -1,0 +1,10 @@
+[
+  {
+    "ParameterKey": "SshCidr",
+    "ParameterValue": "203.0.113.10/32"
+  },
+  {
+    "ParameterKey": "SshPublicKey",
+    "ParameterValue": "ssh-ed25519 AAAA_REPLACE_WITH_YOUR_PUBLIC_KEY nt548-lab01"
+  }
+]

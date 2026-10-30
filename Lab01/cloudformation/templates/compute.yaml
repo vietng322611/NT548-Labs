@@ -1,0 +1,75 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: NT548 Lab01 EC2 resources
+
+Parameters:
+  Name:
+    Type: String
+  PublicSubnetId:
+    Type: AWS::EC2::Subnet::Id
+  PrivateSubnetId:
+    Type: AWS::EC2::Subnet::Id
+  PublicSecurityGroupId:
+    Type: AWS::EC2::SecurityGroup::Id
+  PrivateSecurityGroupId:
+    Type: AWS::EC2::SecurityGroup::Id
+  SshPublicKey:
+    Type: String
+    NoEcho: true
+    AllowedPattern: '^ssh-(ed25519|rsa) [A-Za-z0-9+/]+={0,3}( .*)?$'
+  AmiId:
+    Type: AWS::SSM::Parameter::Value<AWS::EC2::Image::Id>
+    Default: /aws/service/ami-amazon-linux-latest/al2023-ami-kernel-6.1-x86_64
+
+Resources:
+  KeyPair:
+    Type: AWS::EC2::KeyPair
+    Properties:
+      KeyName: !Sub '${Name}-key'
+      PublicKeyMaterial: !Ref SshPublicKey
+      Tags:
+        - { Key: Project, Value: NT548-Lab01 }
+        - { Key: ManagedBy, Value: CloudFormation }
+
+  PublicInstance:
+    Type: AWS::EC2::Instance
+    Properties:
+      ImageId: !Ref AmiId
+      InstanceType: t3.micro
+      SubnetId: !Ref PublicSubnetId
+      SecurityGroupIds: [!Ref PublicSecurityGroupId]
+      KeyName: !Ref KeyPair
+      BlockDeviceMappings:
+        - DeviceName: /dev/xvda
+          Ebs:
+            VolumeSize: 8
+            VolumeType: gp3
+            DeleteOnTermination: true
+      Tags:
+        - { Key: Name, Value: !Sub '${Name}-public-ec2' }
+        - { Key: Project, Value: NT548-Lab01 }
+        - { Key: ManagedBy, Value: CloudFormation }
+
+  PrivateInstance:
+    Type: AWS::EC2::Instance
+    Properties:
+      ImageId: !Ref AmiId
+      InstanceType: t3.micro
+      SubnetId: !Ref PrivateSubnetId
+      SecurityGroupIds: [!Ref PrivateSecurityGroupId]
+      KeyName: !Ref KeyPair
+      BlockDeviceMappings:
+        - DeviceName: /dev/xvda
+          Ebs:
+            VolumeSize: 8
+            VolumeType: gp3
+            DeleteOnTermination: true
+      Tags:
+        - { Key: Name, Value: !Sub '${Name}-private-ec2' }
+        - { Key: Project, Value: NT548-Lab01 }
+        - { Key: ManagedBy, Value: CloudFormation }
+
+Outputs:
+  PublicIp:
+    Value: !GetAtt PublicInstance.PublicIp
+  PrivateIp:
+    Value: !GetAtt PrivateInstance.PrivateIp
