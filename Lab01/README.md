@@ -2,7 +2,7 @@
 
 Triển khai hạ tầng AWS bằng Terraform, gồm VPC, Public Subnet, Private Subnet, Internet Gateway, NAT Gateway, Route Tables, hai EC2 instance và Security Groups.
 
-Hướng dẫn dưới đây sử dụng Ubuntu/WSL. Chạy các lệnh trong cùng terminal.
+Các lệnh dưới đây dùng cú pháp Bash. Chạy trong cùng terminal Bash; nếu dùng PowerShell, cần đổi cú pháp biến, đường dẫn và nối dòng tương ứng.
 
 ## 1. Hạ tầng triển khai
 
@@ -26,7 +26,7 @@ Các CIDR và Availability Zone được cấu hình trong lời gọi module `n
 
 ## 2. Điều kiện chuẩn bị
 
-- Cài Git, Terraform CLI, AWS CLI v2, OpenSSH client và curl trong WSL.
+- Cài Git, Terraform CLI, AWS CLI v2, OpenSSH client và curl trên máy chạy lệnh; bảo đảm các công cụ có trong `PATH` của terminal.
 - Có tài khoản AWS và credentials có quyền quản lý VPC, subnet, Internet Gateway, NAT Gateway, Elastic IP, Route Tables, Security Groups, EC2 và EC2 key pair.
 - Có kết nối Internet để tải Terraform provider và truy cập AWS API.
 
@@ -146,7 +146,7 @@ Giữ file `.terraform.lock.hcl` trong Git để lưu phiên bản provider đã
 
 ### 7.2. SSH vào Public EC2
 
-Trong WSL, tại thư mục `terraform/`:
+Trong terminal Bash trên máy người dùng, tại thư mục `terraform/`:
 
 ```bash
 PUBLIC_IP=$(terraform output -raw public_ec2_ip)
@@ -161,11 +161,11 @@ Xác nhận host key khi kết nối lần đầu. Trong Public EC2, chạy:
 hostname
 ```
 
-Sau khi kiểm tra, chạy `exit` để quay lại terminal WSL.
+Sau khi kiểm tra, chạy `exit` để quay lại terminal trên máy người dùng.
 
 ### 7.3. SSH vào Private EC2 qua Public EC2
 
-Chạy từ terminal WSL, sử dụng các biến IP đã lấy ở trên:
+Chạy từ terminal Bash trên máy người dùng, sử dụng các biến IP đã lấy ở trên:
 
 ```bash
 ssh -i ~/.ssh/nt548-lab01 \
@@ -191,7 +191,7 @@ Chạy `exit` sau khi kiểm tra xong.
 
 ## 8. Xóa tài nguyên
 
-Sau khi hoàn thành kiểm thử và lưu đủ minh chứng, chạy từ thư mục `terraform/` trên máy WSL:
+Sau khi hoàn thành kiểm thử và lưu đủ minh chứng, chạy từ thư mục `terraform/` trên máy người dùng:
 
 ```bash
 terraform plan -destroy

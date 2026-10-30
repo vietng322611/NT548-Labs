@@ -2,7 +2,7 @@
 
 Triển khai hạ tầng AWS bằng CloudFormation, gồm VPC, Public Subnet, Private Subnet, Internet Gateway, NAT Gateway, Route Tables, hai EC2 instance và Security Groups.
 
-Hướng dẫn dưới đây sử dụng Ubuntu/WSL. Chạy các lệnh trong cùng terminal.
+Các lệnh dưới đây dùng cú pháp Bash. Chạy trong cùng terminal Bash; nếu dùng PowerShell, cần đổi cú pháp biến, đường dẫn và nối dòng tương ứng.
 
 ## Triển khai từng giai đoạn để chụp báo cáo
 
@@ -20,7 +20,7 @@ Bảng trên là thứ tự chỉnh sửa, không phải giá trị parameter. G
 
 ### Lệnh cho bước 1 hiện tại
 
-Chạy trong WSL, tại thư mục `cloudformation/`:
+Chạy trong terminal Bash, tại thư mục `cloudformation/`:
 
 ```bash
 aws cloudformation package \
@@ -60,7 +60,7 @@ Các CIDR và Availability Zone là parameters của root stack trong `cloudform
 
 ## 2. Điều kiện chuẩn bị
 
-- Cài Git, AWS CLI v2, OpenSSH client và curl trong WSL.
+- Cài Git, AWS CLI v2, OpenSSH client và curl trên máy chạy lệnh; bảo đảm các công cụ có trong `PATH` của terminal.
 - Có tài khoản AWS và credentials có quyền quản lý CloudFormation, S3, VPC, subnet, Internet Gateway, NAT Gateway, Elastic IP, Route Tables, Security Groups, EC2 và EC2 key pair.
 - Có một S3 bucket trong `us-east-1` để lưu nested templates.
 
