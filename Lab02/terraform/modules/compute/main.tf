@@ -29,7 +29,7 @@ resource "aws_instance" "public" {
   vpc_security_group_ids      = [var.public_ec2_sg_id]
   key_name                    = aws_key_pair.this.key_name
   associate_public_ip_address = true
-  ebs_optimized = true
+  ebs_optimized               = true
 
   root_block_device {
     volume_size           = 8
@@ -59,7 +59,7 @@ resource "aws_instance" "private" {
   vpc_security_group_ids      = [var.private_ec2_sg_id]
   key_name                    = aws_key_pair.this.key_name
   associate_public_ip_address = false
-  ebs_optimized = true
+  ebs_optimized               = true
 
   root_block_device {
     volume_size           = 8

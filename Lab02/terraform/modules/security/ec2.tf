@@ -32,7 +32,7 @@ resource "aws_security_group" "private_ec2" {
   vpc_id      = var.vpc_id
 
   ingress {
-    description = "Allow SSH from public EC2 security group"
+    description     = "Allow SSH from public EC2 security group"
     from_port       = 22
     to_port         = 22
     protocol        = "tcp"
