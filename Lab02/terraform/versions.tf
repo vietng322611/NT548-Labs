@@ -2,9 +2,9 @@ terraform {
   required_version = "~> 1.16.0"
 
   backend "s3" {
-    bucket = "nt548-lab02"
-    key    = "terraform.tfstate"
-    region = "ap-southeast-1"
+    bucket       = "nt548-lab02"
+    key          = "terraform.tfstate"
+    region       = "ap-southeast-1"
     use_lockfile = true
   }
 
