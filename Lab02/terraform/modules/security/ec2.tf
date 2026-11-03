@@ -1,4 +1,5 @@
 resource "aws_security_group" "public_ec2" {
+  #checkov:skip=CKV2_AWS_5:Security group is attached to the public EC2 instance in the compute module.
   name        = "${var.name}-public-ec2-sg"
   description = "Allow SSH from administrator IP"
   vpc_id      = var.vpc_id
@@ -27,6 +28,7 @@ resource "aws_security_group" "public_ec2" {
 }
 
 resource "aws_security_group" "private_ec2" {
+   #checkov:skip=CKV2_AWS_5:Security group is attached to the private EC2 instance in the compute module.
   name        = "${var.name}-private-ec2-sg"
   description = "Allow SSH from public EC2 security group"
   vpc_id      = var.vpc_id
