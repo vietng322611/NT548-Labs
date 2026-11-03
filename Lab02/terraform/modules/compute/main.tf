@@ -18,11 +18,11 @@ resource "aws_key_pair" "this" {
   public_key = var.ssh_public_key
 }
 
-# checkov:skip=CKV_AWS_126:Basic monitoring is sufficient for this lab to avoid additional CloudWatch costs.
-# checkov:skip=CKV2_AWS_5:Security group is attached to the public EC2 instance through the compute module.
-# checkov:skip=CKV2_AWS_41:No AWS API access is required by EC2 instances in this lab.
-# checkov:skip=CKV_AWS_88:Public EC2 requires a public IP for SSH administration. SSH ingress is restricted to the administrator IP.
 resource "aws_instance" "public" {
+  # checkov:skip=CKV_AWS_126:Basic monitoring is sufficient for this lab to avoid additional CloudWatch costs.
+  # checkov:skip=CKV2_AWS_5:Security group is attached to the public EC2 instance through the compute module.
+  # checkov:skip=CKV2_AWS_41:No AWS API access is required by EC2 instances in this lab.
+  # checkov:skip=CKV_AWS_88:Public EC2 requires a public IP for SSH administration. SSH ingress is restricted to the administrator IP.
   ami                         = data.aws_ami.amazon_linux.id
   instance_type               = "t3.micro"
   subnet_id                   = var.public_subnet_id
@@ -49,10 +49,10 @@ resource "aws_instance" "public" {
   }
 }
 
-# checkov:skip=CKV_AWS_126:Basic monitoring is sufficient for this lab to avoid additional CloudWatch costs.
-# checkov:skip=CKV2_AWS_5:Security group is attached to the private EC2 instance through the compute module.
-# checkov:skip=CKV2_AWS_41:No AWS API access is required by EC2 instances in this lab.
 resource "aws_instance" "private" {
+  # checkov:skip=CKV_AWS_126:Basic monitoring is sufficient for this lab to avoid additional CloudWatch costs.
+  # checkov:skip=CKV2_AWS_5:Security group is attached to the private EC2 instance through the compute module.
+  # checkov:skip=CKV2_AWS_41:No AWS API access is required by EC2 instances in this lab.
   ami                         = data.aws_ami.amazon_linux.id
   instance_type               = "t3.micro"
   subnet_id                   = var.private_subnet_id
