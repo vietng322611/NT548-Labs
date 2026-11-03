@@ -10,5 +10,5 @@ variable "ssh_public_key" {
 
 variable "project_name" {
   description = "Name of the project"
-  type = string
+  type        = string
 }
