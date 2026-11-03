@@ -68,6 +68,8 @@ jobs:
     
     env:
       TF_VAR_ssh_public_key: ${{ secrets.SSH_PUBLIC_KEY }}
+      TF_VAR_ssh_cidr: ${{ vars.SSH_CIDR }}
+      TF_VAR_project_name: ${{ vars.PROJECT_NAME }}
 
     steps:
       - name: Checkout
@@ -89,8 +91,6 @@ jobs:
 
       - name: Terraform Plan
         run: terraform plan -no-color -out=tfplan
-        env:
-          TF_VAR_ssh_cidr: ${{ vars.SSH_CIDR }}
 
       - name: Upload Terraform Plan
         uses: actions/upload-artifact@v4
@@ -117,6 +117,8 @@ jobs:
     
     env:
       TF_VAR_ssh_public_key: ${{ secrets.SSH_PUBLIC_KEY }}
+      TF_VAR_ssh_cidr: ${{ vars.SSH_CIDR }}
+      TF_VAR_project_name: ${{ vars.PROJECT_NAME }}
 
     steps:
       - name: Checkout
@@ -144,8 +146,6 @@ jobs:
 
       - name: Terraform Apply
         run: terraform apply -auto-approve tfplan
-        env:
-          TF_VAR_ssh_cidr: ${{ vars.SSH_CIDR }}
 
   destroy:
     name: Terraform Destroy
