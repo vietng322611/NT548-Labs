@@ -34,7 +34,7 @@ module "compute" {
   private_subnet_id = module.network.private_subnet_id
   public_ec2_sg_id  = module.security.public_ec2_sg_id
   private_ec2_sg_id = module.security.private_ec2_sg_id
-  ssh_public_key    = file(pathexpand("~/.ssh/nt548-lab01.pub"))
+  ssh_public_key    = var.ssh_public_key
 
   depends_on = [module.routing]
 }

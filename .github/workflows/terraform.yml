@@ -62,6 +62,9 @@ jobs:
     defaults:
       run:
         working-directory: Lab02/terraform
+    
+    env:
+      TF_VAR_ssh_public_key: ${{ secrets.SSH_PUBLIC_KEY }}
 
     steps:
       - name: Checkout
@@ -106,6 +109,9 @@ jobs:
     defaults:
       run:
         working-directory: Lab02/terraform
+    
+    env:
+      TF_VAR_ssh_public_key: ${{ secrets.SSH_PUBLIC_KEY }}
 
     steps:
       - name: Checkout
