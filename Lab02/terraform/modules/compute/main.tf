@@ -18,6 +18,10 @@ resource "aws_key_pair" "this" {
   public_key = var.ssh_public_key
 }
 
+# checkov:skip=CKV_AWS_126:Basic monitoring is sufficient for this lab to avoid additional CloudWatch costs.
+# checkov:skip=CKV2_AWS_5:Security group is attached to the public EC2 instance through the compute module.
+# checkov:skip=CKV2_AWS_41:No AWS API access is required by EC2 instances in this lab.
+# checkov:skip=CKV_AWS_88:Public EC2 requires a public IP for SSH administration. SSH ingress is restricted to the administrator IP.
 resource "aws_instance" "public" {
   ami                         = data.aws_ami.amazon_linux.id
   instance_type               = "t3.micro"
@@ -25,6 +29,7 @@ resource "aws_instance" "public" {
   vpc_security_group_ids      = [var.public_ec2_sg_id]
   key_name                    = aws_key_pair.this.key_name
   associate_public_ip_address = true
+  ebs_optimized = true
 
   root_block_device {
     volume_size           = 8
@@ -37,8 +42,16 @@ resource "aws_instance" "public" {
     Project   = "NT548-Lab01"
     ManagedBy = "Terraform"
   }
+
+  metadata_options {
+    http_endpoint = "enabled"
+    http_tokens   = "required"
+  }
 }
 
+# checkov:skip=CKV_AWS_126:Basic monitoring is sufficient for this lab to avoid additional CloudWatch costs.
+# checkov:skip=CKV2_AWS_5:Security group is attached to the private EC2 instance through the compute module.
+# checkov:skip=CKV2_AWS_41:No AWS API access is required by EC2 instances in this lab.
 resource "aws_instance" "private" {
   ami                         = data.aws_ami.amazon_linux.id
   instance_type               = "t3.micro"
@@ -46,6 +59,7 @@ resource "aws_instance" "private" {
   vpc_security_group_ids      = [var.private_ec2_sg_id]
   key_name                    = aws_key_pair.this.key_name
   associate_public_ip_address = false
+  ebs_optimized = true
 
   root_block_device {
     volume_size           = 8
@@ -57,5 +71,10 @@ resource "aws_instance" "private" {
     Name      = "${var.name}-private-ec2"
     Project   = "NT548-Lab01"
     ManagedBy = "Terraform"
+  }
+
+  metadata_options {
+    http_endpoint = "enabled"
+    http_tokens   = "required"
   }
 }
