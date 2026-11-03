@@ -6,7 +6,7 @@ resource "aws_default_security_group" "this" {
 
   tags = {
     Name      = "${var.name}-default-sg"
-    Project   = var.project_name
+    Project   = var.name
     ManagedBy = "Terraform"
   }
 }

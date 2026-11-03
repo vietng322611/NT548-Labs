@@ -19,7 +19,3 @@ variable "private_subnet_cidr" {
 variable "availability_zone" {
   type = string
 }
-
-variable "project_name" {
-  type = string
-}

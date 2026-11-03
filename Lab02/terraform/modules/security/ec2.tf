@@ -29,7 +29,7 @@ resource "aws_security_group" "public_ec2" {
 
   tags = {
     Name      = "${var.name}-public-ec2-sg"
-    Project   = var.project_name
+    Project   = var.name
     ManagedBy = "Terraform"
   }
 }
@@ -65,7 +65,7 @@ resource "aws_security_group" "private_ec2" {
 
   tags = {
     Name      = "${var.name}-private-ec2-sg"
-    Project   = var.project_name
+    Project   = var.name
     ManagedBy = "Terraform"
   }
 }

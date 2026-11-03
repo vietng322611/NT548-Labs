@@ -9,7 +9,3 @@ variable "name" {
 variable "ssh_cidr" {
   type = string
 }
-
-variable "project_name" {
-  type = string
-}

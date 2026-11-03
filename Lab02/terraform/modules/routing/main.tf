@@ -3,7 +3,7 @@ resource "aws_route_table" "public" {
 
   tags = {
     Name      = "${var.name}-public-rt"
-    Project   = var.project_name
+    Project   = var.name
     ManagedBy = "Terraform"
   }
 }
@@ -24,7 +24,7 @@ resource "aws_route_table" "private" {
 
   tags = {
     Name      = "${var.name}-private-rt"
-    Project   = var.project_name
+    Project   = var.name
     ManagedBy = "Terraform"
   }
 }

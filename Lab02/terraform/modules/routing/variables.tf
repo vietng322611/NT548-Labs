@@ -17,7 +17,3 @@ variable "private_subnet_id" {
 variable "igw_id" {
   type = string
 }
-
-variable "project_name" {
-  type = string
-}
