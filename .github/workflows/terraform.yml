@@ -48,7 +48,7 @@ jobs:
         with:
           directory: Lab02/terraform
           framework: terraform
-          skip-check: CKV2_AWS_5,CKV2_AWS_12
+          skip_check: CKV2_AWS_5,CKV2_AWS_12
 
   plan:
     name: Terraform Plan
