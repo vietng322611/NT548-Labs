@@ -87,6 +87,8 @@ jobs:
 
       - name: Terraform Plan
         run: terraform plan -no-color -out=tfplan
+        env:
+          TF_VAR_ssh_cidr: ${{ vars.SSH_CIDR }}
 
       - name: Upload Terraform Plan
         uses: actions/upload-artifact@v4
@@ -140,3 +142,5 @@ jobs:
 
       - name: Terraform Apply
         run: terraform apply -auto-approve tfplan
+        env:
+          TF_VAR_ssh_cidr: ${{ vars.SSH_CIDR }}
