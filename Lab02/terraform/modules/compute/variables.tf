@@ -21,3 +21,7 @@ variable "public_ec2_sg_id" {
 variable "private_ec2_sg_id" {
   type = string
 }
+
+variable "project_name" {
+  type = string
+}

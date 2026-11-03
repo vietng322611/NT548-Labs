@@ -39,7 +39,7 @@ resource "aws_instance" "public" {
 
   tags = {
     Name      = "${var.name}-public-ec2"
-    Project   = "NT548-Lab01"
+    Project   = var.project_name
     ManagedBy = "Terraform"
   }
 
@@ -69,7 +69,7 @@ resource "aws_instance" "private" {
 
   tags = {
     Name      = "${var.name}-private-ec2"
-    Project   = "NT548-Lab01"
+    Project   = var.project_name
     ManagedBy = "Terraform"
   }
 

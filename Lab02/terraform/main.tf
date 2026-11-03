@@ -1,7 +1,7 @@
 module "network" {
   source = "./modules/network"
 
-  name                = "nt548-lab01"
+  name                = var.project_name
   vpc_cidr            = "10.0.0.0/16"
   public_subnet_cidr  = "10.0.1.0/24"
   private_subnet_cidr = "10.0.2.0/24"
@@ -11,7 +11,7 @@ module "network" {
 module "security" {
   source = "./modules/security"
 
-  name     = "nt548-lab01"
+  name     = var.project_name
   vpc_id   = module.network.vpc_id
   ssh_cidr = var.ssh_cidr
 }
@@ -19,7 +19,7 @@ module "security" {
 module "routing" {
   source = "./modules/routing"
 
-  name              = "nt548-lab01"
+  name              = var.project_name
   vpc_id            = module.network.vpc_id
   public_subnet_id  = module.network.public_subnet_id
   private_subnet_id = module.network.private_subnet_id
@@ -29,7 +29,7 @@ module "routing" {
 module "compute" {
   source = "./modules/compute"
 
-  name              = "nt548-lab01"
+  name              = var.project_name
   public_subnet_id  = module.network.public_subnet_id
   private_subnet_id = module.network.private_subnet_id
   public_ec2_sg_id  = module.security.public_ec2_sg_id

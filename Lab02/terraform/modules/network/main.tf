@@ -5,7 +5,7 @@ resource "aws_vpc" "this" {
 
   tags = {
     Name      = "${var.name}-vpc"
-    Project   = "NT548-Lab01"
+    Project   = var.project_name
     ManagedBy = "Terraform"
   }
 }
@@ -15,7 +15,7 @@ resource "aws_internet_gateway" "this" {
 
   tags = {
     Name      = "${var.name}-igw"
-    Project   = "NT548-Lab01"
+    Project   = var.project_name
     ManagedBy = "Terraform"
   }
 }
@@ -28,7 +28,7 @@ resource "aws_subnet" "public" {
 
   tags = {
     Name      = "${var.name}-public-subnet"
-    Project   = "NT548-Lab01"
+    Project   = var.project_name
     ManagedBy = "Terraform"
   }
 }
@@ -41,7 +41,7 @@ resource "aws_subnet" "private" {
 
   tags = {
     Name      = "${var.name}-private-subnet"
-    Project   = "NT548-Lab01"
+    Project   = var.project_name
     ManagedBy = "Terraform"
   }
 }

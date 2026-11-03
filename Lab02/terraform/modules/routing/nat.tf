@@ -3,7 +3,7 @@ resource "aws_eip" "nat" {
 
   tags = {
     Name      = "${var.name}-nat-eip"
-    Project   = "NT548-Lab01"
+    Project   = var.project_name
     ManagedBy = "Terraform"
   }
 }
@@ -15,7 +15,7 @@ resource "aws_nat_gateway" "this" {
 
   tags = {
     Name      = "${var.name}-nat"
-    Project   = "NT548-Lab01"
+    Project   = var.project_name
     ManagedBy = "Terraform"
   }
 
