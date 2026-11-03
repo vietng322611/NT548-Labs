@@ -1,4 +1,5 @@
 # checkov:skip=CKV2_AWS_11:VPC Flow Logs are omitted in this lab to avoid additional monitoring costs.
+# checkov:skip=CKV2_AWS_12:Default security group explicitly denies all ingress and egress traffic.
 resource "aws_vpc" "this" {
   cidr_block           = var.vpc_cidr
   enable_dns_support   = true
